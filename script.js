@@ -17,6 +17,10 @@ class Matrix {
     return new Matrix(matrix);
   }
 
+  shape(){
+    return [this.rows,this.cols];
+  }
+
   get(row = null, col = null) {
     row = (row == -1) ? this.rows - 1 : row;
     col = (col == -1) ? this.cols - 1 : col;
@@ -59,10 +63,22 @@ class Matrix {
     return minValue;
   }
 
+  round(dec=0){
+    const OP = dec + 1;
+    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        newMatrix.mat[row][col] = Math.round(this.mat[row][col]*OP)/OP;
+      }
+    }
+    return newMatrix;
+  }
+
   updateMinPad() {
-    const MAX_STR_LEN = String(this.max()).length;
-    const MIN_STR_LEN = String(this.min()).length;
-    this.minPad = (MAX_STR_LEN > MIN_STR_LEN) ? MAX_STR_LEN : MIN_STR_LEN
+    const flatMatrix = this.mat.reduce( (acc,x) => acc.concat(x), [] );
+    const idxLength = flatMatrix.map( (x,idx) => [idx, String(x).length]);
+    idxLength.sort();
+    this.minPad = idxLength.at(-1)[1];
   }
 
   print() {
@@ -84,7 +100,13 @@ class Matrix {
   }
 
   add(matrix) {
-    if ((this.rows !== matrix.rows) || (this.cols !== matrix.cols)) return null;
+    // if ((this.rows !== matrix.rows) || (this.cols !== matrix.cols)) return null;
+    if (this.cols !== matrix.cols) return null;
+    if (matrix.rows === 1){
+      const repMat = [];
+      for(let idx=0; idx < this.rows; idx++) repMat.push([...matrix.mat[0]]);
+      matrix = new Matrix(repMat);
+    }
     const newMatrix = Matrix.Zeros(this.rows, matrix.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < matrix.cols; col++) {
