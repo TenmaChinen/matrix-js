@@ -63,14 +63,15 @@ class Matrix {
     return minValue;
   }
 
-  round(dec=0){
-    const OP = dec + 1;
+  round(dec=1){
+    const OP = 10 ** dec;
     const newMatrix = Matrix.Zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         newMatrix.mat[row][col] = Math.round(this.mat[row][col]*OP)/OP;
       }
     }
+    newMatrix.updateMinPad();
     return newMatrix;
   }
 
@@ -100,7 +101,6 @@ class Matrix {
   }
 
   add(matrix) {
-    // if ((this.rows !== matrix.rows) || (this.cols !== matrix.cols)) return null;
     if (this.cols !== matrix.cols) return null;
     if (matrix.rows === 1){
       const repMat = [];
