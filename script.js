@@ -17,8 +17,8 @@ class Matrix {
     return new Matrix(matrix);
   }
 
-  shape(){
-    return [this.rows,this.cols];
+  shape() {
+    return [this.rows, this.cols];
   }
 
   get(row = null, col = null) {
@@ -63,12 +63,12 @@ class Matrix {
     return minValue;
   }
 
-  round(dec=1){
+  round(dec = 1) {
     const OP = 10 ** dec;
     const newMatrix = Matrix.Zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
-        newMatrix.mat[row][col] = Math.round(this.mat[row][col]*OP)/OP;
+        newMatrix.mat[row][col] = Math.round(this.mat[row][col] * OP) / OP;
       }
     }
     newMatrix.updateMinPad();
@@ -76,13 +76,14 @@ class Matrix {
   }
 
   updateMinPad() {
-    const flatMatrix = this.mat.reduce( (acc,x) => acc.concat(x), [] );
-    const idxLength = flatMatrix.map( (x,idx) => [idx, String(x).length]);
+    const flatMatrix = this.mat.reduce((acc, x) => acc.concat(x), []);
+    const idxLength = flatMatrix.map((x, idx) => [String(x).length, idx]);
     idxLength.sort();
-    this.minPad = idxLength.at(-1)[1];
+    this.minPad = idxLength.at(-1)[0];
   }
 
   print() {
+    this.updateMinPad();
     let result = "";
     const addPad = (x) => String(x).padStart(this.minPad, " ");
     for (let row = 0; row < this.rows; row++) {
@@ -91,29 +92,88 @@ class Matrix {
     console.log(result);
   }
 
-  addValue(num) {
+  addValue(value) {
+    if (typeof (value) !== "number") return null;
+    const newMatrix = Matrix.Zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
-        this.mat[row][col] += num;
+        newMatrix.mat[row][col] = this.mat[row][col] + value;
       }
     }
-    return this;
+    return newMatrix;
   }
 
   add(matrix) {
-    if (this.cols !== matrix.cols) return null;
-    if (matrix.rows === 1){
-      const repMat = [];
-      for(let idx=0; idx < this.rows; idx++) repMat.push([...matrix.mat[0]]);
-      matrix = new Matrix(repMat);
+    if (typeof (matrix) === "number") return this.addValue(matrix);
+
+    if (!matrix instanceof Matrix) return null;
+
+    if (this.eqRows(matrix) && this.eqCols(matrix)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] + matrix.mat[row][col];
+        }
+      }
+    } else if (this.eqRows(matrix) && (matrix.cols === 1)) {
+
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] + matrix.mat[row][0];
+        }
+      }
+    } else if (this.eqCols(matrix) && (matrix.rows === 1)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] + matrix.mat[0][col];
+        }
+      }
+    } else {
+      return null;
     }
-    const newMatrix = Matrix.Zeros(this.rows, matrix.cols);
+    return newMatrix;
+  }
+
+  multiplyValue(value) {
+    if (typeof (value) !== "number") return null;
+    const newMatrix = Matrix.Zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < matrix.cols; col++) {
-        newMatrix.mat[row][col] = this.mat[row][col] + matrix.mat[row][col];
+      for (let col = 0; col < this.cols; col++) {
+        newMatrix.mat[row][col] = this.mat[row][col] * value;
       }
     }
-    newMatrix.updateMinPad();
+    return newMatrix;
+  }
+
+  multiply(matrix) {
+
+    const newMatrix = Matrix.Zeros(this.rows, matrix.cols);
+    if (typeof (matrix) === "number") return this.multiplyValue(matrix);
+
+    if (!matrix instanceof Matrix) return null;
+
+    if (this.eqRows(matrix) && this.eqCols(matrix)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] * matrix.mat[row][col];
+        }
+      }
+    } else if (this.eqRows(matrix) && (matrix.cols === 1)) {
+
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] * matrix.mat[row][0];
+        }
+      }
+    } else if (this.eqCols(matrix) && (matrix.rows === 1)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] * matrix.mat[0][col];
+        }
+      }
+    } else {
+      return null;
+    }
+
     return newMatrix;
   }
 
@@ -131,11 +191,14 @@ class Matrix {
         newMatrix.mat[row][col] = value;
       }
     }
-    newMatrix.updateMinPad();
     return newMatrix;
   }
-}
 
-const matA = new Matrix([[0, 2, 3], [4, 5, 6]]);
-const matB = new Matrix([[10, 2], [4, 5], [2, 1]]);
-const matC = new Matrix([[4, 1, 2], [6, 3, 0]]);
+  eqRows(matrix) {
+    return this.rows === matrix.rows;
+  }
+
+  eqCols(matrix) {
+    return this.cols === matrix.cols;
+  }
+}
