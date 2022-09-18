@@ -12,17 +12,17 @@ matA.print();
 // console.log("\nMatrix B");
 // matB.print();
 
-// console.log("\nMatrix C");
-// matC.print();
+console.log("\nMatrix C");
+matC.print();
 
-console.log("\nMatrix D");
-matD.print();
+// console.log("\nMatrix D");
+// matD.print();
 
-console.log("\nMatrix E");
-matE.print();
+// console.log("\nMatrix E");
+// matE.print();
 
 /* #########################################################
-   #################   O P E R A T O N S   #################
+   ##########   M A T R I X   O P E R A T O N S   ##########
    ######################################################### */
 
 /* #############################################
@@ -44,14 +44,35 @@ matE.print();
 // else console.log( "NULL" );
 
 /* #############################################
+   #################   S U B   #################
+   ############################################# */
+
+console.log("\n( Matrix A ) SUB ( Matrix C )");
+matA.sub(matC).print();
+
+console.log("\n( Matrix C ) SUB ( 10 )");
+matA.sub(5).print();
+
+console.log("\n( Matrix C ) SUB ( 5 ) [ value ]");
+matA.subValue(5).print();
+
+console.log("\n( Matrix C ) SUB ( Non Matrix ) ( add )");
+result = matA.sub("String");
+if ( result ) result.print();
+else console.log( "NULL" );
+
+/* #############################################
    ############   M U L T I P L Y   ############
    ############################################# */
 
 // console.log("\n( Matrix A ) MULTIPLY ( Matrix C )");
 // matA.multiply(matC).print();
 
-// console.log("\n( Matrix A ) MULTIPLY ( Matrix C ) [ value ]");
+// console.log("\n( Matrix A ) MULTIPLY ( 10 ) [ value ]");
 // matA.multiply(10).print();
+
+// console.log("\n( Matrix A ) MULTIPLY ( -1 ) [ value ]");
+// matA.multiply(-1).print();
 
 // console.log("\n( Matrix C ) MULTIPLY ( Non Matrix ) [ value ]");
 // result = matC.multiplyValue("String");
@@ -101,7 +122,7 @@ matE.print();
 // matA.dot(matB).print();
 
 /* #########################################################
-   ############   S E L F   O P E R A T O N S   ############
+   ############   S E L F   O P E R A T O R S   ############
    ######################################################### */
 
 /* #############################################
@@ -123,3 +144,11 @@ matE.print();
 
 // console.log("\n( Matrix A ) Transpose");
 // matA.transpose().print();
+
+/* #############################################
+   #################   E X P   #################
+   ############################################# */
+
+  //  console.log("\n( Matrix A ) EXP");
+
+  //  matA.exp().print();

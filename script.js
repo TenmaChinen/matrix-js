@@ -86,23 +86,61 @@ class Matrix {
   eqCols(matrix) {
     return this.cols === matrix.cols;
   }
+  
+  /* 
+    ###############################################################
+    @############   V A L U E   O P E R A T I O N S   #############
+    ###############################################################
+  */
+    addValue(value) {
+      if (typeof (value) !== "number") return null;
+      const newMatrix = Matrix.Zeros(this.rows, this.cols);
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] + value;
+        }
+      }
+      return newMatrix;
+    }
+
+    subValue(value) {
+      if (typeof (value) !== "number") return null;
+      const newMatrix = Matrix.Zeros(this.rows, this.cols);
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] - value;
+        }
+      }
+      return newMatrix;
+    }
+
+    multiplyValue(value) {
+      if (typeof (value) !== "number") return null;
+      const newMatrix = Matrix.Zeros(this.rows, this.cols);
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] * value;
+        }
+      }
+      return newMatrix;
+    }
+
+    divideValue(value) {
+      if (typeof (value) !== "number") return null;
+      const newMatrix = Matrix.Zeros(this.rows, this.cols);
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] / value;
+        }
+      }
+      return newMatrix;
+    }
 
   /* 
     ###############################################################
-    ###################   O P E R A T I O N S   ###################
+    ############   M A T R I X   O P E R A T I O N S   ############
     ###############################################################
   */
-
-  addValue(value) {
-    if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        newMatrix.mat[row][col] = this.mat[row][col] + value;
-      }
-    }
-    return newMatrix;
-  }
 
   add(matrix) {
     if (typeof (matrix) === "number") return this.addValue(matrix);
@@ -135,13 +173,33 @@ class Matrix {
     return newMatrix;
   }
 
-  multiplyValue(value) {
-    if (typeof (value) !== "number") return null;
+  sub(matrix) {
+    if (typeof (matrix) === "number") return this.subValue(matrix);
+
+    if (!matrix instanceof Matrix) return null;
+
     const newMatrix = Matrix.Zeros(this.rows, this.cols);
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        newMatrix.mat[row][col] = this.mat[row][col] * value;
+
+    if (this.eqRows(matrix) && this.eqCols(matrix)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] - matrix.mat[row][col];
+        }
       }
+    } else if (this.eqRows(matrix) && (matrix.cols === 1)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] - matrix.mat[row][0];
+        }
+      }
+    } else if (this.eqCols(matrix) && (matrix.rows === 1)) {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < matrix.cols; col++) {
+          newMatrix.mat[row][col] = this.mat[row][col] - matrix.mat[0][col];
+        }
+      }
+    } else {
+      return null;
     }
     return newMatrix;
   }
@@ -177,17 +235,6 @@ class Matrix {
       return null;
     }
 
-    return newMatrix;
-  }
-
-  divideValue(value) {
-    if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
-        newMatrix.mat[row][col] = this.mat[row][col] / value;
-      }
-    }
     return newMatrix;
   }
 
@@ -301,6 +348,16 @@ class Matrix {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         newMatrix.mat[col][row] = this.mat[row][col];
+      }
+    }
+    return newMatrix;
+  }
+
+  exp(){
+    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        newMatrix.mat[row][col] = Math.exp(this.mat[row][col]);
       }
     }
     return newMatrix;
