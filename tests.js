@@ -77,15 +77,20 @@ matE.print();
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
-console.log("\n( Matrix A ) DIVIDE ( Matrix D )");
-result = matA.divide(matD);
-if ( result ) result.print();
-else console.log( "NULL" );
+// console.log("\n( Matrix A ) DIVIDE ( 0 ) [ value ]");
+// result = matA.divide(0);
+// if ( result ) result.print();
+// else console.log( "NULL" );
 
-console.log("\n( Matrix A ) DIVIDE ( Matrix D Transpose )");
+// console.log("\n( Matrix A ) DIVIDE ( Matrix D )");
+// result = matA.divide(matD);
+// if ( result ) result.print();
+// else console.log( "NULL" );
 
-if ( result ) result.print();
-else console.log( "NULL" );
+// console.log("\n( Matrix A ) DIVIDE ( Matrix E )");
+// result = matA.divide(matE);
+// if ( result ) result.print();
+// else console.log( "NULL" );
 
 /* #############################################
    #########   D O T   P R O D U C T   #########
@@ -116,5 +121,5 @@ else console.log( "NULL" );
    ###########   T R A N S P O S E   ###########
    ############################################# */
 
-console.log("\n( Matrix A ) Transpose");
-matA.transpose().print();
+// console.log("\n( Matrix A ) Transpose");
+// matA.transpose().print();

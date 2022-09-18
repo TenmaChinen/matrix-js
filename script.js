@@ -196,24 +196,24 @@ class Matrix {
 
     if (!matrix instanceof Matrix) return null;
 
-    const newMatrix = Matrix.Zeros(this.rows, matrix.cols);
+    const newMatrix = Matrix.Zeros(this.rows, this.cols);
 
     if (this.eqRows(matrix) && this.eqCols(matrix)) {
       for (let row = 0; row < this.rows; row++) {
-        for (let col = 0; col < matrix.cols; col++) {
+        for (let col = 0; col < this.cols; col++) {
           newMatrix.mat[row][col] = this.mat[row][col] / matrix.mat[row][col];
         }
       }
     } else if (this.eqRows(matrix) && (matrix.cols === 1)) {
 
       for (let row = 0; row < this.rows; row++) {
-        for (let col = 0; col < matrix.cols; col++) {
+        for (let col = 0; col < this.cols; col++) {
           newMatrix.mat[row][col] = this.mat[row][col] / matrix.mat[row][0];
         }
       }
     } else if (this.eqCols(matrix) && (matrix.rows === 1)) {
       for (let row = 0; row < this.rows; row++) {
-        for (let col = 0; col < matrix.cols; col++) {
+        for (let col = 0; col < this.cols; col++) {
           newMatrix.mat[row][col] = this.mat[row][col] / matrix.mat[0][col];
         }
       }
