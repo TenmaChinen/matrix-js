@@ -327,7 +327,7 @@ class Matrix {
     }
   }
 
-  round(dec = 1) {
+  round(dec = 0) {
     const OP = 10 ** dec;
     const newMatrix = Matrix.Zeros(this.rows, this.cols);
     for (let row = 0; row < this.rows; row++) {

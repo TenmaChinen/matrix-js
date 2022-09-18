@@ -1,25 +1,25 @@
 let result;
 
-const matA = new Matrix([[0, 2, 3], [12, 15, 6]]);
-const matB = new Matrix([[10, 2], [4, 5], [2, 1]]);
-const matC = new Matrix([[4, 1, 2], [6, 3, 1]]);
-const matD = new Matrix([[1, 2, 4]]);
-const matE = new Matrix([[1], [2]]);
+const matrixA = new Matrix([[0, -2, 3], [1, 3, 2]]);
+const matrixB = new Matrix([[3, 2], [0, -2], [2, 1]]);
+const matrixC = new Matrix([[4, 1, 2], [6, 3, 1]]);
+const matrixD = new Matrix([[1, 2, 4]]);
+const matrixE = new Matrix([[1], [2]]);
 
 console.log("\nMatrix A");
-matA.print();
+matrixA.print();
 
-// console.log("\nMatrix B");
-// matB.print();
+console.log("\nMatrix B");
+matrixB.print();
 
-console.log("\nMatrix C");
-matC.print();
+// console.log("\nMatrix C");
+// matrixC.print();
 
 // console.log("\nMatrix D");
-// matD.print();
+// matrixD.print();
 
 // console.log("\nMatrix E");
-// matE.print();
+// matrixE.print();
 
 /* #########################################################
    ##########   M A T R I X   O P E R A T O N S   ##########
@@ -30,16 +30,16 @@ matC.print();
    ############################################# */
 
 // console.log("\n( Matrix A ) ADD ( Matrix C )");
-// matA.add(matC).print();
+// matrixA.add(matrixC).print();
 
 // console.log("\n( Matrix C ) ADD ( 10 )");
-// matC.add(10).print();
+// matrixC.add(10).print();
 
 // console.log("\n( Matrix C ) ADD ( 10 ) [ value ]");
-// matC.addValue(10).print();
+// matrixC.addValue(10).print();
 
 // console.log("\n( Matrix C ) ADD ( Non Matrix ) ( add )");
-// result = matC.add("String");
+// result = matrixC.add("String");
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
@@ -47,35 +47,35 @@ matC.print();
    #################   S U B   #################
    ############################################# */
 
-console.log("\n( Matrix A ) SUB ( Matrix C )");
-matA.sub(matC).print();
+// console.log("\n( Matrix A ) SUB ( Matrix C )");
+// matrixA.sub(matrixC).print();
 
-console.log("\n( Matrix C ) SUB ( 10 )");
-matA.sub(5).print();
+// console.log("\n( Matrix C ) SUB ( 10 )");
+// matrixA.sub(5).print();
 
-console.log("\n( Matrix C ) SUB ( 5 ) [ value ]");
-matA.subValue(5).print();
+// console.log("\n( Matrix C ) SUB ( 5 ) [ value ]");
+// matrixA.subValue(5).print();
 
-console.log("\n( Matrix C ) SUB ( Non Matrix ) ( add )");
-result = matA.sub("String");
-if ( result ) result.print();
-else console.log( "NULL" );
+// console.log("\n( Matrix C ) SUB ( Non Matrix ) ( add )");
+// result = matrixA.sub("String");
+// if ( result ) result.print();
+// else console.log( "NULL" );
 
 /* #############################################
    ############   M U L T I P L Y   ############
    ############################################# */
 
 // console.log("\n( Matrix A ) MULTIPLY ( Matrix C )");
-// matA.multiply(matC).print();
+// matrixA.multiply(matrixC).print();
 
 // console.log("\n( Matrix A ) MULTIPLY ( 10 ) [ value ]");
-// matA.multiply(10).print();
+// matrixA.multiply(10).print();
 
 // console.log("\n( Matrix A ) MULTIPLY ( -1 ) [ value ]");
-// matA.multiply(-1).print();
+// matrixA.multiply(-1).print();
 
 // console.log("\n( Matrix C ) MULTIPLY ( Non Matrix ) [ value ]");
-// result = matC.multiplyValue("String");
+// result = matrixC.multiplyValue("String");
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
@@ -84,32 +84,32 @@ else console.log( "NULL" );
    ############################################# */
 
 // console.log("\n( Matrix A ) DIVIDE ( Matrix C )");
-// result = matA.divide(matC);
+// result = matrixA.divide(matrixC);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
 // console.log("\n( Matrix A ) DIVIDE ( 2 ) [ value ]");
-// result = matA.divide(2);
+// result = matrixA.divide(2);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
 // console.log("\n( Matrix A ) DIVIDE ( Infinity ) [ value ]");
-// result = matA.divide(Infinity);
+// result = matrixA.divide(Infinity);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
 // console.log("\n( Matrix A ) DIVIDE ( 0 ) [ value ]");
-// result = matA.divide(0);
+// result = matrixA.divide(0);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
 // console.log("\n( Matrix A ) DIVIDE ( Matrix D )");
-// result = matA.divide(matD);
+// result = matrixA.divide(matrixD);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
 // console.log("\n( Matrix A ) DIVIDE ( Matrix E )");
-// result = matA.divide(matE);
+// result = matrixA.divide(matrixE);
 // if ( result ) result.print();
 // else console.log( "NULL" );
 
@@ -117,33 +117,44 @@ else console.log( "NULL" );
    #########   D O T   P R O D U C T   #########
    ############################################# */
 
-// console.log("\n( Matrix A ) DOT ( Matrix B )");
+console.log("\n( Matrix A ) DOT ( Matrix B )");
 
-// matA.dot(matB).print();
+matrixA.dot(matrixB).print();
 
 /* #########################################################
    ############   S E L F   O P E R A T O R S   ############
    ######################################################### */
+
+   
+/* #############################################
+   #############   M I N   M A X   #############
+   ############################################# */
+
+// console.log("\n( Matrix A ) MIN");
+// console.log(matrixA.min());
+
+// console.log("\n( Matrix A ) MAX");
+// console.log(matrixA.max());
 
 /* #############################################
    #################   S U M   #################
    ############################################# */
 
 // console.log("\n( Matrix A ) SUM ( axis = null )");
-// console.log(matA.sum());
+// console.log(matrixA.sum());
 
 // console.log("\n( Matrix A ) SUM ( axis = 0 )");
-// matA.sum(0).print();
+// matrixA.sum(0).print();
 
 // console.log("\n( Matrix A ) SUM ( axis = 1 )");
-// matA.sum(1).print();
+// matrixA.sum(1).print();
 
 /* #############################################
    ###########   T R A N S P O S E   ###########
    ############################################# */
 
 // console.log("\n( Matrix A ) Transpose");
-// matA.transpose().print();
+// matrixA.transpose().print();
 
 /* #############################################
    #################   E X P   #################
@@ -151,4 +162,4 @@ else console.log( "NULL" );
 
   //  console.log("\n( Matrix A ) EXP");
 
-  //  matA.exp().print();
+  //  matrixA.exp().print();
