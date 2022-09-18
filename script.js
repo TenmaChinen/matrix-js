@@ -65,7 +65,7 @@ class Matrix {
   updateMinPad() {
     const flatMatrix = this.flatten();
     const idxLength = flatMatrix.mat[0].map((x, idx) => [String(x).length, idx]);
-    idxLength.sort( (x1,x2) => (x2[0]-x1[0]));
+    idxLength.sort((x1, x2) => (x2[0] - x1[0]));
     this.minPad = idxLength[0][0];
   }
 
@@ -251,7 +251,7 @@ class Matrix {
   sum(axis = null) {
     switch (axis) {
       case null:
-        let value;
+        let value = 0;
         for (let row = 0; row < this.rows; row++) {
           for (let col = 0; col < this.cols; col++) {
             value += this.mat[row][col];
@@ -262,20 +262,22 @@ class Matrix {
         const rowMatrix = Matrix.Zeros(1, this.cols);
         for (let col = 0; col < this.cols; col++) {
           for (let row = 0; row < this.rows; row++) {
-            rowMatrix[0][col] += this.mat[row][col];
+            rowMatrix.mat[0][col] += this.mat[row][col];
           }
         }
         return rowMatrix;
       case 1:
         const colMatrix = Matrix.Zeros(this.rows, 1);
         for (let row = 0; row < this.rows; row++) {
-            for (let col = 0; col < this.cols; col++) {
-            rowMatrix[row][0] += this.mat[row][col];
+          for (let col = 0; col < this.cols; col++) {
+            colMatrix.mat[row][0] += this.mat[row][col];
           }
         }
-        return rowMatrix;
+        return colMatrix;
+
+      default:
+        return null;
     }
-    return null;
   }
 
   round(dec = 1) {
@@ -289,8 +291,18 @@ class Matrix {
     return newMatrix;
   }
 
-  flatten(){
+  flatten() {
     const mat = this.mat.reduce((acc, list) => acc.concat(list), []);
     return new Matrix([mat]);
+  }
+
+  transpose() {
+    const newMatrix = Matrix.Zeros(this.cols,this.rows);
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        newMatrix.mat[col][row] = this.mat[row][col];
+      }
+    }
+    return newMatrix;
   }
 }

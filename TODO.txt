@@ -19,9 +19,9 @@
 
 🟡 2. Self Operations
 
-  🟢 2.1. Round by
+  🟡 2.1. Round by
     🟢 2.1.1. By Num
-    🟢 2.1.2. Tests
+    🔘 2.1.2. Tests
 
   🟡 3.1. Sum by axis
     🟢 3.1.1. Vertical = 0
@@ -35,10 +35,10 @@
     🔘 4.1.3. All = null
     🔘 4.1.4. Tests
 
-  🔘 5.1. Transpose
-    🔘 5.1.1. Tests
+  🟢 5.1. Transpose
+    🟢 5.1.1. Tests
   
 
   🟡 6.1. Flatten
-    🔘 6.1.4. All
+    🟢 6.1.4. All
     🔘 6.1.4. Tests
