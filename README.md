@@ -37,8 +37,8 @@ https://github.com/TenmaChinen/ann-models-2-npy-js
 - Check the shape, min or max values
   ```javascript
   matrixA.shape(); // [ 2 , 3 ] => ( Rows & Columns )
-  matrixA.min();   //  0
-  matrixA.max();   //  6
+  matrixA.min();   //  -2
+  matrixA.max();   //  3
   ```
 
 - Perform a dot operations like the following script:
