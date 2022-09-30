@@ -48,6 +48,19 @@ https://github.com/TenmaChinen/ann-models-2-npy-js
   ```
   ![dot_product_matrix-js](https://user-images.githubusercontent.com/36393143/190913289-fe8a3883-98c6-4d98-839c-39ac2672774a.png)
 
+
+## What I learned from this project
+
+- I learned to appreciate the benefits from using TDD to develop and ensure the proper performance for each feature implemented and the new features that could be added preventing from create bugs to the already implemented features.
+
+- I learned how powerful JavaScript classes can be, allowing much more commodity to manage complex logic that is handled behind the class, using static methods to create class instances inside or outside the class.
+
+- How JavaScript can be more efficient in terms of iterating arrays.
+
+- How to throw custom errors to notify the user what is not working properly in the library.
+
+
 ## Future Work
+- ~~Add TDD to test all the features.~~ ✅
 - Add comparative of equality between matrices.
 - Add static methods to perform other operations like value divide matrix, which is available using `matrixA.pow(-1)`, but it's not user friendly.
