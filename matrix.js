@@ -2,18 +2,36 @@ class Matrix {
   rows = null;
   cols = null;
 
-  constructor(matrix) {
+  constructor(matrix,trust=false) {
     this.rows = matrix.length;
-    this.cols = matrix[0].length;
-    this.mat = matrix;
+    if (trust || Matrix.isValid(matrix)){
+      this.cols = matrix[0].length;
+      this.mat = matrix;
+    }else{
+      throw new Error("All rows must contain same amount of columns");
+    }
   }
 
-  static Zeros(rows, cols) {
+  static zeros(rows, cols) {
     const matrix = [];
     for (let row = 0; row < rows; row++) {
       matrix.push([...Array(cols).fill(0)]);
     }
-    return new Matrix(matrix);
+    return new Matrix(matrix,true);
+  }
+
+  static isValid(matrix){
+    if ( !Array.isArray(matrix) || !Array.isArray(matrix[0])) return false;
+    let arrayRow;
+    const length = matrix[0].length;
+    for (let row = 1; row < matrix.length; row++) {
+      arrayRow = matrix[row];
+      if (!Array.isArray(arrayRow) || arrayRow.length != length)return false;
+      for (let col = 0; col < arrayRow.length; col++) {
+        if (typeof (arrayRow[col]) !== "number") return false;
+      }
+    }
+    return true;
   }
 
   shape() {
@@ -34,11 +52,11 @@ class Matrix {
         for (let row = 0; row < this.rows; row++) {
           column.push([this.mat[row][col]]);
         }
-        return new Matrix(column);
+        return new Matrix(column,true);
       }
     } else {
-      if (row != null) return new Matrix([this.mat[row]]);
-      else return new Matrix(this.mat);
+      if (row != null) return new Matrix([this.mat[row]],true);
+      else return new Matrix(this.mat,true);
     }
   }
 
@@ -98,7 +116,7 @@ class Matrix {
   */
   addValue(value) {
     if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row, col;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < this.cols; col++) {
@@ -110,7 +128,7 @@ class Matrix {
 
   subValue(value) {
     if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row, col;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < this.cols; col++) {
@@ -122,7 +140,7 @@ class Matrix {
 
   multiplyValue(value) {
     if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row, col;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < this.cols; col++) {
@@ -134,7 +152,7 @@ class Matrix {
 
   divideValue(value) {
     if (typeof (value) !== "number") return null;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row, col;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < this.cols; col++) {
@@ -156,7 +174,7 @@ class Matrix {
     if (!(matrix instanceof Matrix)) return null;
 
     const [matrixA, matrixB] = (this.size() >= matrix.size()) ? [this, matrix] : [matrix, this];
-    const newMatrix = Matrix.Zeros(matrixA.rows, matrixA.cols);
+    const newMatrix = Matrix.zeros(matrixA.rows, matrixA.cols);
     const newMat = newMatrix.mat;
     const [matA, matB] = [matrixA.mat, matrixB.mat];
     let row, col;
@@ -191,7 +209,7 @@ class Matrix {
     if (!(matrix instanceof Matrix)) return null;
 
     const [rows, cols] = (this.size() >= matrix.size()) ? this.shape() : matrix.shape();
-    const newMatrix = Matrix.Zeros(rows, cols);
+    const newMatrix = Matrix.zeros(rows, cols);
     const newMat = newMatrix.mat;
     const [matA, matB] = [this.mat, matrix.mat];
     let row, col;
@@ -245,7 +263,7 @@ class Matrix {
 
     const [matrixA, matrixB] = (this.size() >= matrix.size()) ? [this, matrix] : [matrix, this];
     const [matA, matB] = [matrixA.mat, matrixB.mat];
-    const newMatrix = Matrix.Zeros(matrixA.rows, matrixA.cols);
+    const newMatrix = Matrix.zeros(matrixA.rows, matrixA.cols);
     const newMat = newMatrix.mat;
     let row, col;
 
@@ -281,7 +299,7 @@ class Matrix {
     if (!(matrix instanceof Matrix)) return null;
 
     const [rows, cols] = (this.size() >= matrix.size()) ? this.shape() : matrix.shape();
-    const newMatrix = Matrix.Zeros(rows, cols);
+    const newMatrix = Matrix.zeros(rows, cols);
     const newMat = newMatrix.mat;
     const [matA, matB] = [this.mat, matrix.mat];
     let row, col;
@@ -331,7 +349,7 @@ class Matrix {
   dot(matrix) {
     if (this.cols !== matrix.rows) return null;
     const REPS = this.cols;
-    const newMatrix = Matrix.Zeros(this.rows, matrix.cols);
+    const newMatrix = Matrix.zeros(this.rows, matrix.cols);
     let row,col,value,rep;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < matrix.cols; col++) {
@@ -363,7 +381,7 @@ class Matrix {
         }
         return value;
       case 0:
-        const rowMatrix = Matrix.Zeros(1, this.cols);
+        const rowMatrix = Matrix.zeros(1, this.cols);
         for (col = 0; col < this.cols; col++) {
           for (row = 0; row < this.rows; row++) {
             rowMatrix.mat[0][col] += this.mat[row][col];
@@ -371,7 +389,7 @@ class Matrix {
         }
         return rowMatrix;
       case 1:
-        const colMatrix = Matrix.Zeros(this.rows, 1);
+        const colMatrix = Matrix.zeros(this.rows, 1);
         for (row = 0; row < this.rows; row++) {
           for (col = 0; col < this.cols; col++) {
             colMatrix.mat[row][0] += this.mat[row][col];
@@ -386,7 +404,7 @@ class Matrix {
 
   round(dec = 0) {
     const OP = 10 ** dec;
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row,col;
     for (row = 0; row < this.rows; row++) {
       for (col = 0; col < this.cols; col++) {
@@ -401,11 +419,11 @@ class Matrix {
     for (let row = 0; row < this.mat.length; row++) {
       matFlat.push(...this.mat[row]);
     }
-    return new Matrix([matFlat]);
+    return new Matrix([matFlat],true);
   }
 
   transpose() {
-    const newMatrix = Matrix.Zeros(this.cols, this.rows);
+    const newMatrix = Matrix.zeros(this.cols, this.rows);
     let row,col;
     for (row = 0; row < this.mat.length; row++) {
       for (col = 0; col < this.mat[row].length; col++) {
@@ -416,7 +434,7 @@ class Matrix {
   }
 
   exp() {
-    const newMatrix = Matrix.Zeros(this.rows, this.cols);
+    const newMatrix = Matrix.zeros(this.rows, this.cols);
     let row,col;
     for (row = 0; row < this.mat.length; row++) {
       for (col = 0; col < this.mat[row].length; col++) {
